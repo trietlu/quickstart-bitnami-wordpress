@@ -18,10 +18,6 @@
             "Description": "Allowed CIDR block for external web access to the Application Load Balancer",
             "Type": "String"
         },
-        "BastionSecurityGroupID": {
-            "Description": "ID of the Bastion Security Group (e.g., sg-1d2c3b4a)",
-            "Type": "AWS::EC2::SecurityGroup::Id"
-        },
         "ElastiCacheEnable":{
             "Description": "Enable ElastiCache",
             "AllowedValues": [
@@ -110,14 +106,6 @@
                     "Ref": "VPC"
                 },
                 "SecurityGroupIngress": [
-                    {
-                        "IpProtocol": "tcp",
-                        "FromPort": "22",
-                        "ToPort": "22",
-                        "SourceSecurityGroupId": {
-                            "Ref": "BastionSecurityGroupID"
-                        }
-                    },
                     {
                         "IpProtocol": "tcp",
                         "FromPort": "443",
