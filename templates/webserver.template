@@ -793,6 +793,7 @@
                 "DesiredCapacity": {
                     "Ref": "WebServerDesiredCapacity"
                 },
+                "TerminationPolicies":["OldestInstance"],
                 "TargetGroupARNs": [
                     {
                         "Ref": "ALBTargetGroup"
@@ -1034,7 +1035,7 @@
                     "Ref": "WebServerASG"
                 },
                 "Cooldown": "30",
-                "EstimatedInstanceWarmup": "30",
+                "EstimatedInstanceWarmup": "120",
                 "PolicyType": "TargetTrackingScaling",
                 "TargetTrackingConfiguration": {
                     "PredefinedMetricSpecification": {

@@ -234,6 +234,12 @@
                 "Ref": "DBName"
             }
         },
+        "DBCluster": {
+            "Description": "Aurora DBCluster",
+            "Value": {
+                "Ref": "AuroraDBCluster"
+            }
+        },
         "AuroraEndPointAddress": {
             "Description": "Aurora Endpoint to connect",
             "Value": {

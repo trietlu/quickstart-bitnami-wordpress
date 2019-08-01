@@ -1,6 +1,6 @@
 {
     "AWSTemplateFormatVersion": "2010-09-09",
-    "Description": "This template deploys WordPress into an existing VPC. **WARNING** This template creates EC2 instances and related resources. You will be billed for the AWS resources used if you create a stack from this template. (qs-1ot302h7c)",
+    "Description": "This template deploys the Octank Homepage into an existing VPC",
     "Metadata": {
         "AWS::CloudFormation::Interface": {
             "ParameterGroups": [
@@ -893,6 +893,10 @@
         "DBENDPOINT": {
             "Description": "The URL of the database",
             "Value": { "Fn::GetAtt": [ "RDSAuroraStack", "Outputs.AuroraEndPointAddress" ] }
+        },
+        "DBCLUSTER": {
+            "Description": "The Database Cluster name",
+            "Value": { "Fn::GetAtt": [ "RDSAuroraStack", "Outputs.DBCluster" ] }
         },
         "CFURL": {
             "Description": "The URL of the CF Distribution",
