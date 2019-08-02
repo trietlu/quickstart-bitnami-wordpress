@@ -5,8 +5,8 @@
         "AWSAMIRegionMap": {
             "Filters": {
                 "BITNAMIWP": {
-                    "name": "bitnami-wordpress-*-linux-debian-9-x86_64-hvm-ebs-high-availability-nami",
-                    "owner-id": "979382823631"
+                    "name": "bitnami-wordpress-5.2.2-0-r55-linux-debian-9-x86_64-hvm-ebs-fronten-48*",
+                    "owner-id": "345084742485"
                 }
             }
         },
@@ -389,6 +389,9 @@
         "AWSAMIRegionMap": {
             "AMI": {
                 "BITNAMIWP": "bitnami-wordpress-5.2.2-0-r55-linux-debian-9-x86_64-hvm-ebs-high-availability-nami"
+            },
+            "us-gov-west-1": {
+                "BITNAMIWP":"ami-63490c02"
             },
             "ap-northeast-1": {
                 "BITNAMIWP": "ami-05c2068fad03d55f3"
@@ -908,14 +911,8 @@
                             "",
                             [
                                 "#!/bin/bash\n",
-                                "mkdir /tmp/ssm \n",
-                                "cd /tmp/ssm \n",
-                                "wget https://s3.amazonaws.com/ec2-downloads-windows/SSMAgent/latest/debian_amd64/amazon-ssm-agent.deb \n",
-                                "dpkg -i amazon-ssm-agent.deb \n",
                                 "systemctl start amazon-ssm-agent \n",
                                 "systemctl enable amazon-ssm-agent \n",
-                                "wget https://s3.amazonaws.com/amazoncloudwatch-agent/debian/amd64/latest/amazon-cloudwatch-agent.deb \n",
-                                "dpkg -i -E amazon-cloudwatch-agent.deb \n",
                                 "/opt/aws/amazon-cloudwatch-agent/bin/amazon-cloudwatch-agent-ctl -a fetch-config -m ec2 -c ssm:cloudwatch-agent -s \n",
                                 "\n# PROVISIONER_CFN_INIT_ENABLED=true",
                                 "\n# PROVISIONER_CFN_INIT_RESOURCE=WebServerLC",
@@ -1044,47 +1041,12 @@
                     "TargetValue": 35.0
                 }
             }
-        },
-        "CFDistribution" : {
-            "Type" : "AWS::CloudFront::Distribution",
-            "Properties" : {
-                "DistributionConfig" : {
-                    "Origins" : [ {
-                            "DomainName" : { "Fn::GetAtt": ["ApplicationLoadBalancer","DNSName"] },
-                            "Id" : "WordpressOrigin",
-                            "CustomOriginConfig" : {
-                                "HTTPPort" : "80",
-                                "HTTPSPort" : "443",
-                                "OriginProtocolPolicy" : "http-only"
-                            }
-                    } ],
-                    "Enabled" : "true",
-                    "Comment" : "CDN for Octank Wordpress site",
-                    "Aliases" : [
-                    ],
-                    "DefaultCacheBehavior" : {
-                        "TargetOriginId" : "WordpressOrigin",
-                        "SmoothStreaming" : "false",  
-                        "ForwardedValues" : {
-                            "QueryString" : "false",
-                            "Cookies" : { "Forward" : "all" }
-                        },
-                        "TrustedSigners" : [
-                        ],
-                        "ViewerProtocolPolicy" : "allow-all"
-                    }
-                }
-            }
         }
     },
     "Outputs": {
         "ASGNAME": {
             "Description":"Name of ASG",
             "Value":{"Ref":"WebServerASG"}
-        },
-        "CFURL": {
-            "Description":"The domain of the CF distribution",
-            "Value": {"Fn::GetAtt": ["CFDistribution","DomainName"]}
         },
         "APPURL": {
             "Condition": "AddDNSRecord",

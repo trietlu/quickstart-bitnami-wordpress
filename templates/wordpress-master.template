@@ -713,7 +713,8 @@
                                 "ap-northeast-1",
                                 "ap-northeast-2",
                                 "ap-southeast-1",
-                                "ap-southeast-2"
+                                "ap-southeast-2",
+                                "us-gov-west-1"
                             ],
                             {
                                 "Ref": "AWS::Region"
@@ -753,7 +754,7 @@
             "Type": "AWS::CloudFormation::Stack",
             "Properties": {
                 "TemplateURL": {
-                    "Fn::Sub": "https://aws-quickstart.s3.amazonaws.com/${QSS3KeyPrefix}submodules/quickstart-aws-vpc/templates/aws-vpc.template"
+                    "Fn::Sub": "https://aws-quickstart.s3.us-gov-west-1.amazonaws.com/${QSS3KeyPrefix}submodules/quickstart-aws-vpc/templates/aws-vpc.template"
                 },
                 "Parameters": {
                     "AvailabilityZones": {
@@ -791,7 +792,7 @@
             "Type": "AWS::CloudFormation::Stack",
             "Properties": {
                 "TemplateURL": {
-                    "Fn::Sub": "https://aws-quickstart.s3.amazonaws.com/${QSS3KeyPrefix}submodules/quickstart-linux-bastion/templates/linux-bastion.template"
+                    "Fn::Sub": "https://aws-quickstart.s3.us-gov-west-1.amazonaws.com/${QSS3KeyPrefix}submodules/quickstart-linux-bastion/templates/linux-bastion.template"
                 },
                 "Parameters": {
                     "BastionAMIOS": {
@@ -839,7 +840,7 @@
             "Type":"AWS::CloudFormation::Stack",
             "Properties":{
                 "TemplateURL":{
-                    "Fn::Sub": "https://${QSS3BucketName}.s3.amazonaws.com/${QSS3KeyPrefix}templates/copy-lambdas.template"
+                    "Fn::Sub": "https://${QSS3BucketName}.s3.us-gov-west-1.amazonaws.com/${QSS3KeyPrefix}templates/copy-lambdas.template"
                 },
                 "Parameters":{
                     "QSS3BucketName": {
@@ -856,7 +857,7 @@
             "Type":"AWS::CloudFormation::Stack",
             "Properties":{
                 "TemplateURL":{
-                    "Fn::Sub": "https://${QSS3BucketName}.s3.amazonaws.com/${QSS3KeyPrefix}templates/acm-cert-r53-record.template"
+                    "Fn::Sub": "https://${QSS3BucketName}.s3.us-gov-west-1.amazonaws.com/${QSS3KeyPrefix}templates/acm-cert-r53-record.template"
                 },
                 "Parameters":{
                   "LambdaZipsBucketName": {
@@ -881,7 +882,7 @@
             "Type": "AWS::CloudFormation::Stack",
             "Properties": {
                 "TemplateURL": {
-                    "Fn::Sub": "https://${QSS3BucketName}.s3.amazonaws.com/${QSS3KeyPrefix}templates/wordpress.template"
+                    "Fn::Sub": "https://${QSS3BucketName}.s3.us-gov-west-1.amazonaws.com/${QSS3KeyPrefix}templates/wordpress.template"
                 },
                 "Parameters": {
                     "VPCID": {

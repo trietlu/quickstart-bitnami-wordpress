@@ -353,6 +353,7 @@
             "Description": "(Optional) Select AMI to use for the WordPress instances. When it's left blank, the default WordPress AMI for your AWS region will be used. When setting an AMI, it must be available in your current region.",
             "AllowedPattern": "^(ami-([a-zA-Z0-9]{8,})){0,1}$",
             "ConstraintDescription": "Must be a valid AMI.",
+            "Default":"ami-d8ca89b9",
             "Type": "String"
         },
         "WebServerDesiredCapacity": {
@@ -622,7 +623,8 @@
                                 "ap-northeast-1",
                                 "ap-northeast-2",
                                 "ap-southeast-1",
-                                "ap-southeast-2"
+                                "ap-southeast-2",
+                                "us-gov-west-1"
                             ],
                             {
                                 "Ref": "AWS::Region"
@@ -655,7 +657,7 @@
             "Type": "AWS::CloudFormation::Stack",
             "Properties": {
                 "TemplateURL": {
-                    "Fn::Sub": "https://${QSS3BucketName}.s3.amazonaws.com/${QSS3KeyPrefix}templates/securitygroups.template"
+                    "Fn::Sub": "https://${QSS3BucketName}.s3.us-gov-west-1.amazonaws.com/${QSS3KeyPrefix}templates/securitygroups.template"
                 },
                 "Parameters": {
                     "VPC": {
@@ -674,7 +676,7 @@
             "Type": "AWS::CloudFormation::Stack",
             "Properties": {
                 "TemplateURL": {
-                    "Fn::Sub": "https://${QSS3BucketName}.s3.amazonaws.com/${QSS3KeyPrefix}templates/rdsaurora.template"
+                    "Fn::Sub": "https://${QSS3BucketName}.s3.us-gov-west-1.amazonaws.com/${QSS3KeyPrefix}templates/rdsaurora.template"
                 },
                 "Parameters": {
                     "Subnets": {
@@ -722,7 +724,7 @@
             "Condition": "ElastiCacheEnableCondition",
             "Properties": {
                 "TemplateURL": {
-                    "Fn::Sub": "https://${QSS3BucketName}.s3.amazonaws.com/${QSS3KeyPrefix}templates/elasticache.template"
+                    "Fn::Sub": "https://${QSS3BucketName}.s3.us-gov-west-1.amazonaws.com/${QSS3KeyPrefix}templates/elasticache.template"
                 },
                 "Parameters":{
                     "Subnets": {
@@ -760,7 +762,7 @@
             "Type": "AWS::CloudFormation::Stack",
             "Properties": {
                 "TemplateURL": {
-                    "Fn::Sub": "https://${QSS3BucketName}.s3.amazonaws.com/${QSS3KeyPrefix}templates/webserver.template"
+                    "Fn::Sub": "https://${QSS3BucketName}.s3.us-gov-west-1.amazonaws.com/${QSS3KeyPrefix}templates/webserver.template"
                 },
                 "Parameters": {
                     "QSS3BucketName": {
@@ -897,10 +899,6 @@
         "DBCLUSTER": {
             "Description": "The Database Cluster name",
             "Value": { "Fn::GetAtt": [ "RDSAuroraStack", "Outputs.DBCluster" ] }
-        },
-        "CFURL": {
-            "Description": "The URL of the CF Distribution",
-            "Value": { "Fn::GetAtt": [ "WebserverStack", "Outputs.CFURL" ] }
         },
         "ASGNAME": {
             "Description": "The Name of the ASG",
