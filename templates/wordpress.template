@@ -353,7 +353,7 @@
             "Description": "(Optional) Select AMI to use for the WordPress instances. When it's left blank, the default WordPress AMI for your AWS region will be used. When setting an AMI, it must be available in your current region.",
             "AllowedPattern": "^(ami-([a-zA-Z0-9]{8,})){0,1}$",
             "ConstraintDescription": "Must be a valid AMI.",
-            "Default":"ami-d8ca89b9",
+            "Default":"ami-9a490cfb",
             "Type": "String"
         },
         "WebServerDesiredCapacity": {

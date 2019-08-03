@@ -911,8 +911,14 @@
                             "",
                             [
                                 "#!/bin/bash\n",
+                                "mkdir /tmp/ssm \n",
+                                "cd /tmp/ssm \n",
+                                "wget https://s3.amazonaws.com/ec2-downloads-windows/SSMAgent/latest/debian_amd64/amazon-ssm-agent.deb \n",
+                                "while ! dpkg -i amazon-ssm-agent.deb; do sleep 5; done; \n",
                                 "systemctl start amazon-ssm-agent \n",
                                 "systemctl enable amazon-ssm-agent \n",
+                                "wget https://s3.amazonaws.com/amazoncloudwatch-agent/debian/amd64/latest/amazon-cloudwatch-agent.deb \n",
+                                "while ! dpkg -i -E amazon-cloudwatch-agent.deb; do sleep 5; done; \n",
                                 "/opt/aws/amazon-cloudwatch-agent/bin/amazon-cloudwatch-agent-ctl -a fetch-config -m ec2 -c ssm:cloudwatch-agent -s \n",
                                 "\n# PROVISIONER_CFN_INIT_ENABLED=true",
                                 "\n# PROVISIONER_CFN_INIT_RESOURCE=WebServerLC",
@@ -1031,8 +1037,8 @@
                 "AutoScalingGroupName": {
                     "Ref": "WebServerASG"
                 },
-                "Cooldown": "30",
-                "EstimatedInstanceWarmup": "120",
+                "Cooldown": "180",
+                "EstimatedInstanceWarmup": "180",
                 "PolicyType": "TargetTrackingScaling",
                 "TargetTrackingConfiguration": {
                     "PredefinedMetricSpecification": {
