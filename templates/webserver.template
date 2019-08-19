@@ -691,6 +691,10 @@
                     {
                         "Key": "stickiness.lb_cookie.duration_seconds",
                         "Value": "30"
+                    },
+                    {
+                        "Key": "deregistration_delay.timeout_seconds",
+                        "Value": "30"
                     }
                 ]
             }
@@ -796,6 +800,11 @@
                 "DesiredCapacity": {
                     "Ref": "WebServerDesiredCapacity"
                 },
+                "MetricsCollection":[
+                    {
+                        "Granularity":"1Minute"
+                    }
+                ],
                 "TerminationPolicies":["OldestInstance"],
                 "TargetGroupARNs": [
                     {
